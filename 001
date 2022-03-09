@@ -5,7 +5,7 @@ if game.GameId == 2655311011 then
     game:GetService("Players").LocalPlayer.Idled:Connect(function()
         game:GetService("VirtualUser"):ClickButton2(Vector2.new())
     end)
-    
+
     local decalsyeeted = true
     local g = game
     local w = g.Workspace
@@ -379,9 +379,9 @@ Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
 
 end
 
-getgenv().autofarm = false
-getgenv().AutoSkills = false
-getgenv().AutoRetry = false
+getgenv().autofarm = true
+getgenv().AutoSkills = true
+getgenv().AutoRetry = true
 speed = 150
 Distance = 5
 function tween(target)
