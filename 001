@@ -169,6 +169,13 @@ if game.GameId == 2655311011 then
         end
     })
     ProFolder:AddButton({
+        text = "ลดค่าFpsเกมส์ลง", 
+            callback = function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/prasert002/001/main/FPS"))()
+            saveSettings()
+        end
+    })
+    ProFolder:AddButton({
         text = "ซ่อนชื่อตัวละคร", 
             callback = function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/prasert01/001/main/NameH"))()
@@ -355,9 +362,9 @@ Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
 
 end
 
-getgenv().autofarm = true
-getgenv().AutoSkills = true
-getgenv().AutoRetry = true
+getgenv().autofarm = false
+getgenv().AutoSkills = false
+getgenv().AutoRetry = false
 speed = 150
 Distance = 5
 function tween(target)
