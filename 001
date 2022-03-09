@@ -355,9 +355,9 @@ Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
 
 end
 
-getgenv().autofarm = false
-getgenv().AutoSkills = false
-getgenv().AutoRetry = false
+getgenv().autofarm = true
+getgenv().AutoSkills = true
+getgenv().AutoRetry = true
 speed = 150
 Distance = 5
 function tween(target)
