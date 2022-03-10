@@ -208,30 +208,30 @@ end
         end 
     })
 
-    FarmingFolder:AddToggle({
-        text = "เปิด auto raid", 
-        state = _G.Settings.AutoRaid,
-        callback = function(a) 
-            _G.Settings.AutoRaid = a
-            saveSettings()
+--     FarmingFolder:AddToggle({
+--         text = "เปิด auto raid", 
+--         state = _G.Settings.AutoRaid,
+--         callback = function(a) 
+--             _G.Settings.AutoRaid = a
+--             saveSettings()
 
            
-             spawn(function()
-            x = game:GetService("Workspace").InteractionCircles.RaidPortal.RaidTimer.Frame.RaidTimerText.Text
-            while true do wait()
-                if _G.Settings.AutoRaid then
-                pcall(function()
-            if string.find(x, "RAID IS OPEN. ENDS IN") then
+--              spawn(function()
+--             x = game:GetService("Workspace").InteractionCircles.RaidPortal.RaidTimer.Frame.RaidTimerText.Text
+--             while true do wait()
+--                 if _G.Settings.AutoRaid then
+--                 pcall(function()
+--             if string.find(x, "RAID IS OPEN. ENDS IN") then
             
-            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportToRaidLobby")
+--             game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportToRaidLobby")
             
-            end
-            end)
-                end
-            end
-             end)
-end
-    })
+--             end
+--             end)
+--                 end
+--             end
+--              end)
+-- end
+--     })
 
 
     ProFolder:AddButton({
