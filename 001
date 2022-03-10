@@ -190,18 +190,18 @@ end
             spawn(function()
                 while true do wait()
                     if _G.Settings.AutoFarm then
-                        -- if 
                         startGame()
                         pcall(function()
                             for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
                                 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.EnemyHealthBarGui then
                                     repeat wait()
-                                        tween(v.HumanoidRootPart);click()
+                                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                                        click()
                                     until v.Humanoid <= 0 or _G.Settings.AutoFarm == false or v.EnemyHealthBarGui == nil
                                 end
                             end
                         end)
-                        end
+                    end
                     end
                 end)
 
