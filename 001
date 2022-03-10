@@ -172,22 +172,39 @@ end
             _G.Settings.AutoFarm = a
             saveSettings()
 
-            startGame()
 
-            task.spawn(function()
-                while task.wait() do
-                    if not _G.Settings.AutoFarm then break end
-                    pcall(function()
-                        for i, v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do 
-                            if v.EnemyHealthBarGui then
-                                repeat task.wait() 
-                                    tween(v.HumanoidRootPart);click()
-                                until v.EnemyHealthBarGui == nil or not _G.Settings.AutoFarm
+            -- task.spawn(function()
+            --     while task.wait() do
+            --         if not _G.Settings.AutoFarm then break end
+            --         pcall(function()
+            --             for i, v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do 
+            --                 if v.EnemyHealthBarGui then
+            --                     repeat task.wait() 
+            --                         tween(v.HumanoidRootPart);click()
+            --                     until v.EnemyHealthBarGui == nil or not _G.Settings.AutoFarm
+            --                 end
+            --             end
+            --         end)
+            --     end
+            -- end)
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoFarm then
+                        -- if 
+                        startGame()
+                        pcall(function()
+                            for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.EnemyHealthBarGui then
+                                    repeat wait()
+                                        tween(v.HumanoidRootPart);click()
+                                    until v.Humanoid <= 0 or _G.Settings.AutoFarm == false or v.EnemyHealthBarGui == nil
+                                end
                             end
+                        end)
                         end
-                    end)
-                end
-            end)
+                    end
+                end)
+
         end 
     })
 
@@ -481,3 +498,28 @@ spawn(function()
         end
     end
 end)
+
+-- async void Attach()
+-- {
+--     API.LaunchExploit();
+
+--     while (IsAPIAttached() == false)
+--     {
+--         await Task.Delay(1);
+--     }
+--     if (IsAPIAttached() == true)
+--     {
+-- await Task.Delay(2000); // 2000 = 2 seconds so if it crashes change the value to 3 or 4 seconds
+--         DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\autoexec");
+--         FileInfo[] TXTFiles = d.GetFiles("*.txt");
+--         foreach (FileInfo file in TXTFiles)
+--         {
+--             API.ExecuteScript(File.ReadAllText($"./autoexec/{file.Name}"));
+--         }
+--         FileInfo[] LUAFiles = d.GetFiles("*.lua");
+--         foreach (FileInfo file in LUAFiles)
+--         {
+--             API.ExecuteScript(File.ReadAllText($"./autoexec/{file.Name}"));
+--         }
+--     }
+-- }
