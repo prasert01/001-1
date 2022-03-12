@@ -441,7 +441,7 @@ end
 
 getgenv().autofarm = true
 getgenv().AutoSkills = true
-getgenv().AutoRetry = true
+getgenv().AutoRetry = false
 speed = 70
 Distance = 2
 function tween(target)
