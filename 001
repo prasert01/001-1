@@ -442,8 +442,8 @@ end
 getgenv().autofarm = true
 getgenv().AutoSkills = true
 getgenv().AutoRetry = true
-speed = 150
-Distance = 5
+speed = 70
+Distance = 2
 function tween(target)
     local target = pcall(function() return target.CFrame end) and target.CFrame or target
     game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(game.Players.LocalPlayer:DistanceFromCharacter(target.Position)/speed, Enum.EasingStyle.Linear), {CFrame = target*CFrame.new(0,0,Distance)}):Play()
