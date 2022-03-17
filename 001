@@ -442,7 +442,7 @@ end
 getgenv().autofarm = true
 getgenv().AutoSkills = true
 getgenv().AutoRetry = false
-speed = 120
+speed = 90
 Distance = 2
 function tween(target)
     local target = pcall(function() return target.CFrame end) and target.CFrame or target
