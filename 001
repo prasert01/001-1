@@ -93,7 +93,7 @@ end
         "Sword Dimension";
         "Ghoul Dimension";
         "Fate Dimension";
-		"Demon Lord Raid";
+		"Comcat Titan Raid";
 		"Tengoku Raid";
 		"Hirito Raid";
 		"Titan Raid"
@@ -442,7 +442,7 @@ end
 getgenv().autofarm = true
 getgenv().AutoSkills = true
 getgenv().AutoRetry = false
-speed = 90
+speed = 150
 Distance = 2
 function tween(target)
     local target = pcall(function() return target.CFrame end) and target.CFrame or target
