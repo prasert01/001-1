@@ -85,7 +85,7 @@ end
     loadSettings()
 
     local MapList = {
-        "Infinite Mode";
+        "Combat Titan Raid";
         "Titan Dimension";
         "Demon Dimension";
         "Curse Dimension";
@@ -93,7 +93,7 @@ end
         "Sword Dimension";
         "Ghoul Dimension";
         "Fate Dimension";
-		"Combat Titan Raid";
+		"Infinite Mode";
 		"Tengoku Raid";
 		"Hirito Raid";
 		"Titan Raid"
