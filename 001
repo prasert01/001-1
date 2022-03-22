@@ -532,7 +532,21 @@ spawn(function()
         if autofarm then
             pcall(function()
                 for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
-                    if v.Name == "King,Shadow Saber" then
+                    if v.Name == "Kingr" then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while true do wait()
+        if autofarm then
+            pcall(function()
+                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                    if v.Name == "Shadow Saber" then
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                     end
                 end
