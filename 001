@@ -208,6 +208,29 @@ end
         end 
     })
 
+    FarmingFolder:AddToggle({
+        text = "เปิด auto click", 
+        state = _G.Settings.AutoRaid,
+        callback = function(a) 
+            _G.Settings.AutoRaid = a
+            saveSettings()
+
+           
+             spawn(function()
+            while true do wait()
+                if _G.Settings.AutoRaid then
+                pcall(function()
+                    game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, true, nil, 1)
+                    game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, false, nil, 1)
+            
+            
+            end)
+                end
+            end
+             end)
+end
+    })
+
 --     FarmingFolder:AddToggle({
 --         text = "เปิด auto raid", 
 --         state = _G.Settings.AutoRaid,
@@ -467,17 +490,12 @@ spawn(function()
                 --                     end
                 --                 end     
                 --             end
-                -- end)         
-                            
-if not v:FindFirstChildOfClass("Humanoid") then
-    v:Destroy()
-end
+                -- end)     
+
                             game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.HumanoidRootPart.Position)
                             wait(2)
 
-                            for i = 1,4 do
-                                game:GetService("ReplicatedStorage").RemoteEvents.MainRemoteEvent:FireServer("UseSkill", {["hrpCFrame"] = v.HumanoidRootPart.CFrame,["attackNumber"] = i}, "BasicAttack")
-                            end
+
                             pcall(function()
                               if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude < 10 then
                             if AutoSkills then
@@ -501,10 +519,24 @@ end
                             end
                         end
                         end)
-                        until not v or not v:IsDescendantOf(workspace.Folders) or v:FindFirstChildOfClass("Humanoid").Health == 0
+                        until not v.Parent or not v:IsDescendantOf(workspace.Folders) or v:FindFirstChildOfClass("Humanoid").Health == 0
                     end)
                 end
             end
+        end
+    end
+end)
+
+spawn(function()
+    while true do wait()
+        if autofarm then
+            pcall(function()
+                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                    if v.Name == "King" then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+                end
+            end)
         end
     end
 end)
@@ -529,7 +561,7 @@ spawn(function()
             end
     for i,v in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
         if string.find(v.Name, "TeleportCircle") then
-            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude <= 40 then
+            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude <= 30 then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameTeleport
                     end
                 end
