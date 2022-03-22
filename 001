@@ -467,8 +467,11 @@ spawn(function()
                 --                     end
                 --                 end     
                 --             end
-                -- end)
-
+                -- end)         
+                            
+if not v:FindFirstChild("Humanoid") then
+    v:Destroy()
+end
                             game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.HumanoidRootPart.Position)
                             wait(2)
 
@@ -519,20 +522,20 @@ spawn(function()
 spawn(function()
     while true do wait()
         if autofarm then
-        for i1,v1 in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
-            if string.find(v1.Name, "TeleportDestination") then
-                CFrameTeleport = v1.CFrame
+            for i1,v1 in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
+                if string.find(v1.Name, "TeleportDestination") then
+                    CFrameTeleport = v1.CFrame
+                end
             end
-        end
-for i,v in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
-    if string.find(v.Name, "TeleportCircle") then
-        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude <= 20 then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameTeleport
+    for i,v in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
+        if string.find(v.Name, "TeleportCircle") then
+            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude <= 40 then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameTeleport
+                    end
                 end
             end
         end
     end
-end
 end)
 -- game:GetService("RunService").Heartbeat:Connect(function()
 --     if autofarm then
