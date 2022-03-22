@@ -469,7 +469,7 @@ spawn(function()
                 --             end
                 -- end)         
                             
-if not v:FindFirstChild("Humanoid") then
+if not v:FindFirstChildOfClass("Humanoid") then
     v:Destroy()
 end
                             game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.HumanoidRootPart.Position)
