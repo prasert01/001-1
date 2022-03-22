@@ -532,7 +532,7 @@ spawn(function()
         if autofarm then
             pcall(function()
                 for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
-                    if v.Name == "King" then
+                    if v.Name == "King","Shadow Saber","Shadow Asssasin" then
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                     end
                 end
