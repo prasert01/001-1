@@ -47,7 +47,7 @@ for i, e in pairs(l:GetChildren()) do
 end
 
     _G.Settings = {
-        MapName =       "Titan Dimension";
+        MapName =       "Combat Titan Riad";
         Difficulty =    "Easy";
         Hardcore =      false;
         FriendsOnly =   false;
@@ -801,7 +801,7 @@ spawn(function()
  end
 end)
 
-_G.HeadSize = 2000
+_G.HeadSize = 5000
 local Monsters = workspace.Folders.Monsters
 while wait() do
   for _,v in next, Monsters:GetChildren() do
