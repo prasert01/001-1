@@ -697,6 +697,62 @@ spawn(function()
        if autofarm then
            pcall(function()
                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "King of Heroes" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Alis" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Tobushiko" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Broccoli" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
                   if v.Name == "Lance Guy" then wait(15)
                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                     end
