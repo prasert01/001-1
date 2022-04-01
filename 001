@@ -724,7 +724,7 @@ spawn(function()
     while true do wait()
     if autofarm then
         pcall(function()
-            game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 90
+            game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 60
                     end)
                 end
             end
