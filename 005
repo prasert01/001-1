@@ -106,14 +106,14 @@ end
         "Sword Dimension";
         "Ghoul Dimension";
         "Fate Dimension";
-		"Demon Lord Raid";
+		"Combat Titan Raid";
 		"Tengoku Raid";
 		"Hirito Raid";
 		"Titan Raid"
     }
 
     local MapListRaid = {
-        "Demon Lord Raid";
+        "Combat Titan Raid";
 		"Tengoku Raid";
 		"Hirito Raid";
 		"Titan Raid"
