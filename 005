@@ -566,10 +566,10 @@ spawn(function()
     if autofarm then
         pcall(function()
             for i,v in pairs(workspace.Folders.Monsters:GetChildren()) do
-                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude >= 70 then
-                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 200
+                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude >= 20 then
+                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 70
                 else
-                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 20
+                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 70
                 end
                             end
                         end)
@@ -646,27 +646,18 @@ end
 end
 end
 end)
--- async void Attach()
--- {
---     API.LaunchExploit();
 
---     while (IsAPIAttached() == false)
---     {
---         await Task.Delay(1);
---     }
---     if (IsAPIAttached() == true)
---     {
--- await Task.Delay(2000); // 2000 = 2 seconds so if it crashes change the value to 3 or 4 seconds
---         DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\autoexec");
---         FileInfo[] TXTFiles = d.GetFiles("*.txt");
---         foreach (FileInfo file in TXTFiles)
---         {
---             API.ExecuteScript(File.ReadAllText($"./autoexec/{file.Name}"));
---         }
---         FileInfo[] LUAFiles = d.GetFiles("*.lua");
---         foreach (FileInfo file in LUAFiles)
---         {
---             API.ExecuteScript(File.ReadAllText($"./autoexec/{file.Name}"));
---         }
---     }
--- }
+_G.HeadSize = 2500
+local Monsters = workspace.Folders.Monsters
+while wait() do
+  for _,v in next, Monsters:GetChildren() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+       v.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+       v.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+       v.HumanoidRootPart.Transparency = 0.7
+       v.HumanoidRootPart.CanCollide = false
+end)
+end
+  end
+end
