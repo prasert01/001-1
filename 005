@@ -54,6 +54,7 @@ end
         FriendsOnly =   false;
         AutoFarm =      false;
         AutoRaid =      false;
+        AutoSellCard =  false;
         AutoRetry =     false;
         AutoSkill =     false;
         Distance =      0;
@@ -166,7 +167,7 @@ end
     
     function raidstart()
         task.spawn(function()
-            local args = {"CreateRoom",{["Difficulty"] = _G.Settings.Difficulty,["FriendsOnly"] = _G.Settings.FriendsOnly,["MapName"] = _G.Settings.MapRaid,["Hardcore"] = _G.Settings.Hardcore}}
+            local args = {"CreateRoom",{["Difficulty"] = _G.Settings.Difficulty,["FriendsOnly"] = _G.Settings.FriendsOnly,["MapName"] = _G.Settings.MapRaid,["Hardcore"] = "Easy"}}
             game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
             wait()
             game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportPlayers")
@@ -250,6 +251,30 @@ end
             _G.Settings.Boss = a
             saveSettings() 
         end
+    })
+
+    FarmingFolder:AddToggle({
+        text = "ขายการ์ด", 
+        state = _G.Settings.AutoSellCard,
+        callback = function(a) 
+            _G.Settings.AutoSellCard = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoSellCard then
+                    pcall(function()
+                        for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                        game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("SellCard",v.Name)
+                            
+                            end
+                        end)
+
+                end
+            end
+             end)
+end
     })
 
     FarmingFolder:AddToggle({
@@ -566,10 +591,10 @@ spawn(function()
     if autofarm then
         pcall(function()
             for i,v in pairs(workspace.Folders.Monsters:GetChildren()) do
-                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude >= 20 then
-                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 70
+                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude >= 70 then
+                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 200
                 else
-                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 70
+                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 20
                 end
                             end
                         end)
@@ -596,6 +621,7 @@ spawn(function()
     end
 end)
 
+    
 game:GetService("RunService").Heartbeat:Connect(function()
     if autofarm then
      pcall(function()
@@ -604,60 +630,17 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
  end)
 
--- spawn(function()
---     while wait() do
---         if AutoSkills then
---             pcall(function()
---               if AutoSkills then
---                   game:GetService("VirtualInputManager"):SendKeyEvent(true, 49, false, game)
---                   game:GetService("VirtualInputManager"):SendKeyEvent(false, 49, false, game)
---                   wait()
---                   game:GetService("VirtualInputManager"):SendKeyEvent(true, 50, false, game)
---                   game:GetService("VirtualInputManager"):SendKeyEvent(false, 50, false, game)
---                   wait()
---                   game:GetService("VirtualInputManager"):SendKeyEvent(true, 51, false, game)
---                   game:GetService("VirtualInputManager"):SendKeyEvent(false, 51, false, game)
---                   wait()
---                   game:GetService("VirtualInputManager"):SendKeyEvent(true, 52, false, game)
---                   game:GetService("VirtualInputManager"):SendKeyEvent(false, 52, false, game)
---                   wait()
---                   game:GetService("VirtualInputManager"):SendKeyEvent(true, 101, false, game)
---                   game:GetService("VirtualInputManager"):SendKeyEvent(false, 101, false, game)
---                   wait()
---                   game:GetService("VirtualInputManager"):SendKeyEvent(true, 114, false, game)
---                   game:GetService("VirtualInputManager"):SendKeyEvent(false, 114, false, game)
-              
---           end
---           end)
---         end
---     end
--- end)
-
-spawn(function()
-    while true do wait()
-    if autofarm then
-pcall(function()
-    
-for i,v in pairs(game:GetService("Workspace").GameMap:GetChildren()) do
-    v:Destroy()
-end
-    
-    end)
-end
-end
-end)
-
-_G.HeadSize = 2500
-local Monsters = workspace.Folders.Monsters
-while wait() do
-  for _,v in next, Monsters:GetChildren() do
-if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-pcall(function()
-       v.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-       v.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
-       v.HumanoidRootPart.Transparency = 0.7
-       v.HumanoidRootPart.CanCollide = false
-end)
-end
-  end
-end
+ _G.HeadSize = 2500
+ local Monsters = workspace.Folders.Monsters
+ while wait() do
+   for _,v in next, Monsters:GetChildren() do
+ if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+ pcall(function()
+        v.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+        v.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+        v.HumanoidRootPart.Transparency = 0.7
+        v.HumanoidRootPart.CanCollide = false
+ end)
+ end
+   end
+ end
