@@ -548,8 +548,8 @@ spawn(function()
                 -- end)     
                                 pcall(function()
                         if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude <= 5 then
-                                game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, true, nil, 1)
-                                game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, false, nil, 1)
+                          --      game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, true, nil, 1)
+                          --      game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, false, nil, 1)
                             end
                         end)
                             -- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
