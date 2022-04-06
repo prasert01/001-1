@@ -55,6 +55,7 @@ end
         AutoRaid =      false;
         AutoRetry =     false;
         AutoSkill =     false;
+        AutoSellCard =     false;
         Distance =      0;
         Speed =         69;
         
@@ -278,7 +279,29 @@ end
 --              end)
 -- end
 --     })
+FarmingFolder:AddToggle({
+    text = "ขายการ์ดทั้งหมด", 
+    state = _G.Settings.AutoSellCard,
+    callback = function(a) 
+        _G.Settings.AutoSellCard = a
+        saveSettings()
 
+
+        spawn(function()
+            while true do wait()
+                if _G.Settings.AutoSellCard then
+                pcall(function()
+                    for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                    game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("SellCard",v.Name)
+                        
+                        end
+                    end)
+
+            end
+        end
+         end)
+end
+})
 
     ProFolder:AddButton({
         text = "ตัวละครไม่ขาดการเชื่อมต่อ", 
