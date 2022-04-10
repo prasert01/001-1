@@ -27,7 +27,7 @@
                 [26] = "730KEK",
                 [27] = "720",
                 [28] = "SEVENHUNDREDYEET",
-                [29] = "680BOOSTO",
+                [29] = "680BOOSTO"
             
             }
                 game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
