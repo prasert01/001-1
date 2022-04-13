@@ -192,7 +192,7 @@ end
 
 
     local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/uzu01/lua/main/ui/uwuware.lua"))()
-    local window = library:CreateWindow("เกมส์ AnimeD-3/4/65")
+    local window = library:CreateWindow("เกมส์ AnimeD-13/4/65")
     local FarmingFolder = window:AddFolder("ฟาร์ม")
     local SettingFolder = window:AddFolder("คั้งค่า")
     local ProFolder = window:AddFolder("ฟั่งชั่นเสริม")
