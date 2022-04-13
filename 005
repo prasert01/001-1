@@ -116,6 +116,7 @@ end
 
     local MapListRaid = {
         "Combat Titan Raid";
+        "Infinity Nojo Raid";
 		"Tengoku Raid";
 		"Hirito Raid";
 		"Titan Raid"
