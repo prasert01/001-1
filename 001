@@ -47,7 +47,7 @@ for i, e in pairs(l:GetChildren()) do
 end
 
     _G.Settings = {
-        MapName =       "Combat Titan Riad";
+        MapName =       "Infinity Nojo Raid";
         Difficulty =    "Easy";
         Hardcore =      false;
         FriendsOnly =   false;
@@ -610,6 +610,34 @@ spawn(function()
        if autofarm then
            pcall(function()
                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Black Dog Ghoul" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "lnvestigator" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
                   if v.Name == "Combat Titan" then wait(60)
                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                     end
@@ -624,34 +652,6 @@ spawn(function()
            pcall(function()
                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
                   if v.Name == "Monstrous Titan" then wait(5)
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                    end
-               end
-           end)
-       end
-   end
-end)
-
-spawn(function()
-    while true do wait()
-       if autofarm then
-           pcall(function()
-               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
-                  if v.Name == "Black Dog Ghoul" then wait(30)
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                    end
-               end
-           end)
-       end
-   end
-end)
-
-spawn(function()
-    while true do wait()
-       if autofarm then
-           pcall(function()
-               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
-                  if v.Name == "lnvestigator" then wait(30)
                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                     end
                end
@@ -909,19 +909,19 @@ spawn(function()
     end
 end)
 
---spawn(function()
- --   while true do wait()
- --    if autofarm then
- --pcall(function()
+spawn(function()
+    while true do wait()
+     if autofarm then
+ pcall(function()
     
- --for i,v in pairs(game:GetService("Workspace").GameMap:GetChildren()) do
- --    v:Destroy()
- --end
+ for i,v in pairs(game:GetService("Workspace").GameMap:GetChildren()) do
+     v:Destroy()
+ end
     
- --    end)
- --end
- --end
---end)
+     end)
+ end
+ end
+end)
 
 _G.HeadSize = 2500
 local Monsters = workspace.Folders.Monsters
