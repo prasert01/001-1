@@ -610,34 +610,6 @@ spawn(function()
        if autofarm then
            pcall(function()
                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
-                  if v.Name == "Black Dog Ghoul" then wait(60)
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                    end
-               end
-           end)
-       end
-   end
-end)
-
-spawn(function()
-    while true do wait()
-       if autofarm then
-           pcall(function()
-               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
-                  if v.Name == "lnvestigator" then wait(60)
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                    end
-               end
-           end)
-       end
-   end
-end)
-
-spawn(function()
-    while true do wait()
-       if autofarm then
-           pcall(function()
-               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
                   if v.Name == "Combat Titan" then wait(60)
                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                     end
@@ -846,7 +818,7 @@ spawn(function()
     while true do wait()
     if autofarm then
         pcall(function()
-            game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 60
+            game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 100
                     end)
                 end
             end
