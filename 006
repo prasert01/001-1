@@ -1,0 +1,42 @@
+local code = {
+                    "910KCODE",
+                    "100KTOAMIL",
+                    "890KCODE",
+                    "INFINITY",
+                    "88880K",
+                    "NOTSHORTCODE",
+                    "SHORTCODE",
+                    "HALF850K",
+                    "840K840",
+                    "DOPEOPLEREADTHESE",
+                    "TITAN",
+                    "TOOMANYCODES",
+                    "WHOCARES810K",
+                    "800KTHANKS",
+                    "400MV",
+                    "790ABCDEF",
+                    "7809",
+                    "770LUCKY",
+                    "76054321",
+                    "PETS2",
+                    "750POGGER",
+                    "740LUL",
+                    "730KEK",
+                    "UPDATE19",
+                    "720",
+                    "BOO710ST",
+                    "PETS",
+                    "680BOOSTO",
+                    "SEVENHUNDREDYEET",
+                    "740LUL",
+                    "76054321"
+                }
+                
+                for i,v in pairs(code) do
+                local args = {
+                    [1] = "RedeemPromoCode",
+                    [2] = v,
+                
+                    }
+                    game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+                end
