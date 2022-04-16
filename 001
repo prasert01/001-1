@@ -918,19 +918,19 @@ spawn(function()
     end
 end)
 
-spawn(function()
-    while true do wait()
-     if autofarm then
- pcall(function()
+--spawn(function()
+--    while true do wait()
+--     if autofarm then
+-- pcall(function()
     
- for i,v in pairs(game:GetService("Workspace").GameMap:GetChildren()) do
-     v:Destroy()
- end
+ --for i,v in pairs(game:GetService("Workspace").GameMap:GetChildren()) do
+ --    v:Destroy()
+ --end
     
-     end)
- end
- end
-end)
+ --    end)
+ --end
+-- end
+--end)
 
 _G.HeadSize = 2500
 local Monsters = workspace.Folders.Monsters
