@@ -47,7 +47,7 @@ for i, e in pairs(l:GetChildren()) do
 end
 
     _G.Settings = {
-        MapName =       "Infinity Nojo Raid";
+        MapName =       "Combat Titan Riad";
         Difficulty =    "Easy";
         Hardcore =      false;
         FriendsOnly =   false;
@@ -56,6 +56,7 @@ end
         AutoRetry =     false;
         AutoSkill =     false;
         AutoSellCard =     false;
+        Redeemallcode =     false;
         Distance =      0;
         Speed =         69;
         
@@ -245,7 +246,7 @@ end
              end)
 end
     })
-      
+     
     FarmingFolder:AddList({
         text = " เลือก boss", 
         value = _G.Settings.Boss,
@@ -298,6 +299,66 @@ FarmingFolder:AddToggle({
                         end
                     end)
 
+            end
+        end
+         end)
+end
+})
+
+FarmingFolder:AddButton({
+    text = "กดรับโค้ดทั้งหมด", 
+    state = _G.Settings.Redeemallcode,
+    callback = function(a) 
+        _G.Settings.Redeemallcode = a
+        saveSettings()
+
+         spawn(function()
+        while true do wait()
+            if _G.Settings.Redeemallcode then
+            pcall(function()
+                local code = {
+                    "910KCODE",
+                    "100KTOAMIL",
+                    "890KCODE",
+                    "INFINITY",
+                    "88880K",
+                    "NOTSHORTCODE",
+                    "SHORTCODE",
+                    "HALF850K",
+                    "840K840",
+                    "DOPEOPLEREADTHESE",
+                    "TITAN",
+                    "TOOMANYCODES",
+                    "WHOCARES810K",
+                    "800KTHANKS",
+                    "400MV",
+                    "790ABCDEF",
+                    "7809",
+                    "770LUCKY",
+                    "76054321",
+                    "PETS2",
+                    "750POGGER",
+                    "740LUL",
+                    "730KEK",
+                    "UPDATE19",
+                    "720",
+                    "BOO710ST",
+                    "PETS",
+                    "680BOOSTO",
+                    "SEVENHUNDREDYEET",
+                    "740LUL",
+                    "76054321"
+                }
+                
+                for i,v in pairs(code) do
+                local args = {
+                    [1] = "RedeemPromoCode",
+                    [2] = v,
+                
+                    }
+                    game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+                end
+        end)
             end
         end
          end)
@@ -610,6 +671,34 @@ spawn(function()
        if autofarm then
            pcall(function()
                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Black Dog Ghoul" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "lnvestigator" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
                   if v.Name == "Combat Titan" then wait(60)
                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                     end
@@ -818,7 +907,7 @@ spawn(function()
     while true do wait()
     if autofarm then
         pcall(function()
-            game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 100
+            game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 60
                     end)
                 end
             end
