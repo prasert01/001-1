@@ -1,4 +1,5 @@
 local code = {
+                    "92000",
                     "910KCODE",
                     "100KTOAMIL",
                     "890KCODE",
