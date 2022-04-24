@@ -422,6 +422,15 @@ end
     })  
 
     ProFolder:AddButton({
+        text = "redeem code", 
+            callback = function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/prasert002/001/main/006"))()
+            saveSettings()
+        end
+    })
+
+
+    ProFolder:AddButton({
         text = "ตัวละครไม่ขาดการเชื่อมต่อ", 
             callback = function()
                 local vu = game:GetService("VirtualUser")
@@ -983,7 +992,7 @@ end)
 
     
 game:GetService("RunService").Heartbeat:Connect(function()
-    if _G.Settings.AutoFarm then
+    if autofarm then
      pcall(function()
        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
      end)
