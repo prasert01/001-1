@@ -55,6 +55,7 @@ end
         AutoFarm =      false;
         AutoRaid =      false;
         AutoSellCard =  false;
+        Autoafkandraid = false;
         AutoRetry =     false;
         AutoSkill =     false;
         Distance =      0;
@@ -282,6 +283,108 @@ end
              end)
 end
     })
+
+    
+--     FarmingFolder:AddToggle({
+--         text = "เปิด auto afk + auto raid", 
+--         state = _G.Settings.Autoafkandraid,
+--         callback = function(a) 
+--             _G.Settings.Autoafkandraid = a
+--             saveSettings()
+
+
+--             spawn(function()
+--                 while true do wait()
+--                     if _G.Settings.Autoafkandraid then
+--                     pcall(function()
+--                         local time = os.date("%X")
+
+--                         if time == "00:00:00" then
+--                             raidstart()
+                        
+--                         elseif time == "01:00:00" then
+--                             raidstart()
+                        
+--                         elseif time == "02:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "03:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "04:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "05:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "06:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "07:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "08:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "09:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "10:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "11:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "12:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "13:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "14:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "15:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "16:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "17:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "18:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "19:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "20:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "21:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "22:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "23:00:00" then
+--                             raidstart()
+                            
+--                         elseif time == "24:00:00" then
+--                             raidstart()
+                            
+                            
+--                         else
+--                             game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportToAFK")
+--                         end
+--                         end)
+
+--                 end
+--             end
+--              end)
+-- end
+--     })
 
     FarmingFolder:AddToggle({
         text = "เปิด auto raid", 
@@ -880,7 +983,7 @@ end)
 
     
 game:GetService("RunService").Heartbeat:Connect(function()
-    if autofarm then
+    if _G.Settings.AutoFarm then
      pcall(function()
        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
      end)
