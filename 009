@@ -1,0 +1,1419 @@
+if game.GameId == 2655311011 then
+
+    repeat wait() until game:IsLoaded()
+
+    game:GetService("Players").LocalPlayer.Idled:Connect(function()
+        game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+    end)
+
+    repeat wait() until game.CoreGui:FindFirstChild('RobloxPromptGui')
+
+    local lp,po,ts = game:GetService('Players').LocalPlayer,game.CoreGui.RobloxPromptGui.promptOverlay,game:GetService('TeleportService')
+
+    po.ChildAdded:connect(function(a)
+        if a.Name == 'ErrorPrompt' then
+        repeat
+           ts:Teleport(game.PlaceId)
+           wait(2)
+       until false
+    end
+end)
+
+setfflag("HumanoidParallelRemoveNoPhysics", "False")
+setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+local decalsyeeted = true 
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+t.WaterWaveSize = 0
+t.WaterWaveSpeed = 0
+t.WaterReflectance = 0
+t.WaterTransparency = 0
+l.GlobalShadows = false
+l.FogEnd = 9e9
+l.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i, v in pairs(g:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+        v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA("Explosion") then
+        v.BlastPressure = 1
+        v.BlastRadius = 1
+    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
+        v.Enabled = false
+    elseif v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+        v.TextureID = 10385902758728957
+    end
+end
+for i, e in pairs(l:GetChildren()) do
+    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+        e.Enabled = false
+    end
+end
+
+    _G.Settings = {
+        MapName =       "Titan Dimension";
+        MapRaid =       "Titan Raid";
+        Difficulty =    "Easy";
+        Hardcore =      false;
+        FriendsOnly =   false;
+        AutoFarm =      false;
+        Autospeedraid = false;
+        AutoRaid =      false;
+        Autobestcard =  false;
+        AutoSellCardCommon =  false;
+        AutoSellCardUncommon = false;
+        AutoSellCardRare = false;
+        AutoSellCardEpic = false;
+        AutoSellCardLegendary = false;
+        Autoafkandraid = false;
+        AutoRetry =     false;
+        AutoSkill =     false;
+        Distance =      0;
+        Speed =         69;
+        
+    }
+
+    local foldername = "prasert"
+    local filename = tostring(game:GetService("Players").LocalPlayer.Name)
+     
+    function saveSettings()
+        local HttpService,json = game:GetService("HttpService")
+        pcall(function()
+        if (writefile) then
+            if isfolder(foldername) then
+                json = HttpService:JSONEncode(_G.Settings)
+                writefile(foldername.."\\"..filename..".lua", json)
+            else
+                makefolder(foldername)
+                writefile(foldername.."\\"..filename..".lua", json)
+            end
+        end
+        end)
+    end
+     
+    function loadSettings()
+        local HttpService = game:GetService("HttpService")
+        pcall(function()
+        if isfile(foldername.."\\"..filename..".lua") then
+            _G.Settings = HttpService:JSONDecode(readfile(foldername.."\\"..filename..".lua"))
+            end
+         end)
+        end
+     
+    loadSettings()
+
+    local Boss = {
+        "Monstrous Titan",
+        "Yakaza",
+        "King of Curses",
+        "Symbol of Evil",
+        "Liberator",
+        "White Reaper",
+        "King"
+    }
+
+    
+    local MapList = {
+        "Infinite Mode";
+        "Titan Dimension";
+        "Demon Dimension";
+        "Curse Dimension";
+        "Villain Dimension";
+        "Sword Dimension";
+        "Ghoul Dimension";
+        "Fate Dimension";
+		"Combat Titan Raid";
+        "Infinity Nojo Raid";
+		"Tengoku Raid";
+		"Hirito Raid";
+		"Titan Raid"
+    }
+
+    local MapListRaid = {
+        "Combat Titan Raid";
+        "Infinity Nojo Raid";
+		"Tengoku Raid";
+		"Hirito Raid";
+		"Titan Raid"
+    }
+
+    local MapDifficulty = {
+        "Infinite";
+        "Easy";
+        "Hard";
+        "Nightmare";
+    }
+
+    local keys = {
+        "One";
+        "Two";
+        "Three";
+        "Four";
+        "E";
+        "R"
+    }
+
+    function tween(Enemy)
+        local plr,tp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        
+        if _G.Settings.Distance >= 1 then
+            tp = {CFrame = Enemy.CFrame * CFrame.new(0,_G.Settings.Distance,0) * CFrame.Angles(math.rad(-90),0,0)}
+        elseif _G.Settings.Distance <= 0 then
+            tp = {CFrame = Enemy.CFrame * CFrame.new(0,_G.Settings.Distance,0) * CFrame.Angles(math.rad(90),0,0)}
+        end
+        
+
+        local ts = game:GetService("TweenService"):Create(plr, TweenInfo.new((plr.Position - Enemy.Position).magnitude/_G.Settings.Speed, Enum.EasingStyle.Linear), tp)
+        ts:Play()
+    end
+
+    function click()
+        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        game:GetService("ReplicatedStorage").RemoteEvents.MainRemoteEvent:FireServer("UseSkill",{["hrpCFrame"] = hrp.CFrame,["attackNumber"] = 1},"BasicAttack")
+    end
+
+    function startGame()
+        task.spawn(function()
+            local args = {"CreateRoom",{["Difficulty"] = _G.Settings.Difficulty,["FriendsOnly"] = _G.Settings.FriendsOnly,["MapName"] = _G.Settings.MapName,["Hardcore"] = _G.Settings.Hardcore}}
+            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+            wait()
+            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportPlayers")
+        end)
+    end 
+    
+    
+    function raidstart()
+        task.spawn(function()
+            local args = {"CreateRoom",{["Difficulty"] = "Easy",["FriendsOnly"] = _G.Settings.FriendsOnly,["MapName"] = _G.Settings.MapRaid,["Hardcore"] = _G.Settings.Hardcore}}
+            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+            wait()
+            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportPlayers")
+        end)
+    end 
+    -- function noclip()
+    --     for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+    --         if v:IsA("BasePart") and v.CanCollide == true then
+    --             v.CanCollide = false
+    --         end
+    --     end
+    -- end
+
+    -- game:GetService("RunService").Stepped:Connect(function()
+    --     if _G.Settings.AutoFarm then
+    --         noclip()
+    --         game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+    --     end
+    -- end)
+
+
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/uzu01/lua/main/ui/uwuware.lua"))()
+    local window = library:CreateWindow("เกมส์ AnimeD-13/4/65")
+    local FarmingFolder = window:AddFolder("ฟาร์ม")
+    local cardff = window:AddFolder("การ์ด")
+    local SettingFolder = window:AddFolder("คั้งค่า")
+    local ProFolder = window:AddFolder("ฟั่งชั่นเสริม")
+    local CreditsFolder = window:AddFolder("เคร์ดิต")
+
+    FarmingFolder:AddToggle({
+        text = "เปิด ออโต้ฟาร๋ม", 
+        state = _G.Settings.AutoFarm,
+        callback = function(a) 
+            _G.Settings.AutoFarm = a
+            saveSettings()
+
+
+            -- task.spawn(function()
+            --     while task.wait() do
+            --         if not _G.Settings.AutoFarm then break end
+            --         pcall(function()
+            --             for i, v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do 
+            --                 if v.EnemyHealthBarGui then
+            --                     repeat task.wait() 
+            --                         tween(v.HumanoidRootPart);click()
+            --                     until v.EnemyHealthBarGui == nil or not _G.Settings.AutoFarm
+            --                 end
+            --             end
+            --         end)
+            --     end
+            -- end)
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoFarm then
+                        -- if _G.Settings.AutoRaid then
+
+                            -- startGame()
+                        pcall(function()
+                            for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.EnemyHealthBarGui then
+                                    repeat wait()
+                                        game:GetService("Workspace").Folders.Players["Bascan_555"].HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                                        click()
+                                    until v.Humanoid <= 0 or _G.Settings.AutoFarm == false or v.EnemyHealthBarGui == nil
+                                end
+                            end
+                        end)
+                    end
+                    end
+                end)
+
+        end 
+    })
+
+    local card = {}
+    for fh, fj in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+        if fj.Name ~= "UIGridLayout" and "CardInventorySlot" then
+            local levelcard = string.sub(fj.LevelReq.text,5)
+                table.insert(card,tonumber(levelcard))
+
+        end
+end
+
+
+FarmingFolder:AddToggle({
+    text = "เปิด auto ใส่ best card", 
+    state = _G.Settings.Autobestcard,
+    callback = function(a) 
+        _G.Settings.Autobestcard = a
+        saveSettings()
+
+
+        spawn(function()
+            while true do wait()
+                if _G.Settings.Autobestcard then
+                pcall(function()
+                    local save = math.max(table.unpack(card))
+                    for fh, v in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                        if v.Name ~= "UIGridLayout" and "CardInventorySlot" then
+                            
+                            if tonumber(string.sub(v.LevelReq.text,5)) >= tonumber(save) then
+                            for fo, fp in pairs(getconnections(v.CardClick.MouseButton1Down)) do
+                          fp:Fire()
+                            if game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.InvOverlayOuterFrame.CardInventoryOverlay.Rarity.Text == "Legendary" then
+                    
+                    game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("EquipCard",v.Name)
+                                end
+                                end
+                        end
+                      end
+                    end
+                    
+                    for fh, v in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+    if v.Name ~= "UIGridLayout" then
+        if v.Name ~= "CardInventorySlot" then
+        
+        if tonumber(string.sub(v.LevelReq.Text,5)) < tonumber(save) then
+            for fo, fp in pairs(getconnections(v.CardClick.MouseButton1Down)) do
+                fp:Fire()
+    if game:GetService("Players").LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.InvOverlayOuterFrame.CardInventoryOverlay.OverlayUnequipButton.Label.Text == "UNEQUIP" then
+game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("UnequipCard",v.Name)
+            end
+        end
+    end
+end
+    end
+    end
+            end)
+        end
+            end
+        end)
+         
+end
+})
+
+
+    FarmingFolder:AddToggle({
+        text = "ออโต้ฟาร์ม ตาม level", 
+        state = _G.Settings.Autofarmfollow,
+        callback = function(a) 
+            _G.Settings.Autofarmfollow = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.Autofarmfollow then
+                    pcall(function()
+                        local level = game:GetService("Players").LocalPlayer.leaderstats.Level.Value
+
+                        if level == 1 or level <= 15 then
+                            Map = "Titan Dimension"
+                        
+                        elseif level == 16 or level <= 30 then
+                            Map = "Demon Dimension"
+                        
+                        elseif level == 31 or level <= 45 then
+                            Map = "Curse Dimension"
+                        
+                        elseif level == 46 or level <= 60 then
+                            Map = "Villain Dimension"
+                        
+                        elseif level == 61 or level <= 75 then
+                            Map = "Sword Dimension"
+                        
+                        elseif level == 76 or level <= 90 then
+                            Map = "Ghoul Dimension"
+                        
+                        elseif level >= 91 then
+                            Map = "Fate Dimension"
+                        
+                            end
+
+                             
+     local args = {"CreateRoom",{["Difficulty"] = "Easy",["FriendsOnly"] = false,["MapName"] = Map,["Hardcore"] = false}}
+            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+            wait()
+            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportPlayers")
+                            
+                        end)
+
+                end
+            end
+             end)
+end
+    })
+    
+    
+    
+    FarmingFolder:AddToggle({
+        text = "เปิด auto afk + auto raid", 
+        state = _G.Settings.Autoafkandraid,
+        callback = function(a) 
+            _G.Settings.Autoafkandraid = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.Autoafkandraid then
+                    pcall(function()
+                        local time = os.date("%H"..":".."%M")
+                        local min = tonumber(os.date("%M"))
+
+
+                        if time == "00:00" or time == "00:01" or time == "00:02" or time == "00:03" or time == "00:04" or time == "00:05" or time == "00:06" or time == "00:07" or time == "00:08" or time == "00:09" or time == "00:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                            end
+                            raidstart()
+                        
+                        elseif time == "01:00" or time == "01:01" or time == "01:02" or time == "01:03" or time == "01:04" or time == "01:05" or time == "01:06" or time == "01:07" or time == "01:08" or time == "01:09" or time == "01:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                        
+                        elseif time == "02:00" or time == "02:01" or time == "02:02" or time == "02:03" or time == "02:04" or time == "02:05" or time == "02:06" or time == "02:07" or time == "02:08" or time == "02:09" or time == "02:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "03:00" or time == "03:01" or time == "03:02" or time == "03:03" or time == "03:04" or time == "03:05" or time == "03:06" or time == "03:07" or time == "03:08" or time == "03:09" or time == "03:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "04:00" or time == "04:01" or time == "04:02" or time == "04:03" or time == "04:04" or time == "04:05" or time == "04:06" or time == "04:07" or time == "04:08" or time == "04:09" or time == "04:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "05:00" or time == "05:01" or time == "05:02" or time == "05:03" or time == "05:04" or time == "05:05" or time == "05:06" or time == "05:07" or time == "05:08" or time == "05:09" or time == "05:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "06:00" or time == "06:01" or time == "06:02" or time == "06:03" or time == "06:04" or time == "06:05" or time == "06:06" or time == "06:07" or time == "06:08" or time == "06:09" or time == "06:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "07:00" or time == "07:01" or time == "07:02" or time == "07:03" or time == "07:04" or time == "07:05" or time == "07:06" or time == "07:07" or time == "07:08" or time == "07:09" or time == "07:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "08:00" or time == "08:01" or time == "08:02" or time == "08:03" or time == "08:04" or time == "08:05" or time == "08:06" or time == "08:07" or time == "08:08" or time == "08:09" or time == "08:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "09:00" or time == "09:01" or time == "09:02" or time == "09:03" or time == "09:04" or time == "09:05" or time == "09:06" or time == "09:07" or time == "09:08" or time == "09:09" or time == "09:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "10:00" or time == "10:01" or time == "10:02" or time == "10:03" or time == "10:04" or time == "10:05" or time == "10:06" or time == "10:07" or time == "10:08" or time == "10:09" or time == "10:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "11:00" or time == "11:01" or time == "11:02" or time == "11:03" or time == "11:04" or time == "11:05" or time == "11:06" or time == "11:07" or time == "11:08" or time == "11:09" or time == "11:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "12:00" or time == "12:01" or time == "12:02" or time == "12:03" or time == "12:04" or time == "12:05" or time == "12:06" or time == "12:07" or time == "12:08" or time == "12:09" or time == "12:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "13:00" or time == "13:01" or time == "13:02" or time == "13:03" or time == "13:04" or time == "13:05" or time == "13:06" or time == "13:07" or time == "13:08" or time == "13:09" or time == "13:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "14:00" or time == "14:01" or time == "14:02" or time == "14:03" or time == "14:04" or time == "14:05" or time == "14:06" or time == "14:07" or time == "14:08" or time == "14:09" or time == "14:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "15:00" or time == "15:01" or time == "15:02" or time == "15:03" or time == "15:04" or time == "15:05" or time == "15:06" or time == "15:07" or time == "15:08" or time == "15:09" or time == "15:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "16:00" or time == "16:01" or time == "16:02" or time == "16:03" or time == "16:04" or time == "16:05" or time == "16:06" or time == "16:07" or time == "16:08" or time == "16:09" or time == "16:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "17:00" or time == "17:01" or time == "17:02" or time == "17:03" or time == "17:04" or time == "17:05" or time == "17:06" or time == "17:07" or time == "17:08" or time == "17:09" or time == "17:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "18:00" or time == "18:01" or time == "18:02" or time == "18:03" or time == "18:04" or time == "18:05" or time == "18:06" or time == "18:07" or time == "18:08" or time == "18:09" or time == "18:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "19:00" or time == "19:01" or time == "19:02" or time == "19:03" or time == "19:04" or time == "19:05" or time == "19:06" or time == "19:07" or time == "19:08" or time == "19:09" or time == "19:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "20:00" or time == "20:01" or time == "20:02" or time == "20:03" or time == "20:04" or time == "20:05" or time == "20:06" or time == "20:07" or time == "20:08" or time == "20:09" or time == "20:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "21:00" or time == "21:01" or time == "21:02" or time == "21:03" or time == "21:04" or time == "21:05" or time == "21:06" or time == "21:07" or time == "21:08" or time == "21:09" or time == "21:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "22:00" or time == "22:01" or time == "22:02" or time == "22:03" or time == "22:04" or time == "22:05" or time == "22:06" or time == "22:07" or time == "22:08" or time == "22:09" or time == "22:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "23:00" or time == "23:01" or time == "23:02" or time == "23:03" or time == "23:04" or time == "23:05" or time == "23:06" or time == "23:07" or time == "23:08" or time == "23:09" or time == "23:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                        elseif time == "24:00" or time == "24:01" or time == "24:02" or time == "24:03" or time == "24:04" or time == "24:05" or time == "24:06" or time == "24:07" or time == "24:08" or time == "24:09" or time == "24:10" then
+                            if game.PlaceId == 6990131029 then
+                                game:GetService("TeleportService"):Teleport(6938803436)
+                        end
+                            raidstart()
+                            
+                            
+                        else
+                            game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("TeleportToAFK")
+                        end
+                        end)
+
+                end
+            end
+             end)
+end
+    })
+
+  
+  
+
+    FarmingFolder:AddToggle({
+        text = "เปิด auto raid", 
+        state = _G.Settings.AutoRaid,
+        callback = function(a) 
+            _G.Settings.AutoRaid = a
+            saveSettings()
+
+            x = game:GetService("Workspace").InteractionCircles.RaidPortal.RaidTimer.Frame.RaidTimerText.Text
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoRaid then
+                    pcall(function()
+                        if string.find(x, "RAID IS OPEN. ENDS IN") then
+                            raidstart()
+                   else
+                    startGame()
+                end
+            end)
+                end
+            end
+             end)
+end
+    })
+
+    -- auto sell card
+
+
+    FarmingFolder:AddToggle({
+        text = "เปิด speed raid", 
+        state = _G.Settings.Autospeedraid,
+        callback = function(a) 
+            _G.Settings.Autospeedraid = a
+            saveSettings()
+
+            x = game:GetService("Workspace").InteractionCircles.RaidPortal.RaidTimer.Frame.RaidTimerText.Text
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.Autospeedraid then
+                    pcall(function()
+                        for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.CenterUIFrame.SpeedRaidCharacterSelector.Shade.SpeedRaidCharacterInventoryScrollingFrame:GetChildren()) do
+                            if v.Name ~= "UIGridLayout" then
+                                local args = {
+                            [1] = "TeleportToShadowRaid",
+                            [2] = v.Name
+                        }
+                        
+                                game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+                        end
+                        end
+                    end)
+                end
+            end
+             end)
+end
+    })
+
+
+
+    FarmingFolder:AddList({
+        text = "เลือกด่าน raid only", 
+        value = _G.Settings.MapRaid,
+        values = MapListRaid, 
+        callback = function(a) 
+            _G.Settings.MapRaid = a
+            saveSettings() 
+        end
+    })  
+
+    cardff:AddToggle({
+        text = "ขายการ์ด common", 
+        state = _G.Settings.AutoSellCardCommon,
+        callback = function(a) 
+            _G.Settings.AutoSellCardCommon = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoSellCardCommon then
+                    pcall(function()
+                        for fh, fj in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                            if fj.Name ~= "UIGridLayout" and "CardInventorySlot" then
+                        for fo, fp in pairs(getconnections(fj.CardClick.MouseButton1Down)) do
+                          fp:Fire()
+                            if game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.InvOverlayOuterFrame.CardInventoryOverlay.Rarity.Text == "Common" then
+                                          game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("SellCard", fj.Name)
+                                        end
+                                    end
+                                end
+                            end
+                        end)
+
+                end
+            end
+             end)
+end
+    })
+
+    cardff:AddToggle({
+        text = "ขายการ์ด uncommon", 
+        state = _G.Settings.AutoSellCardUncommon,
+        callback = function(a) 
+            _G.Settings.AutoSellCardUncommon = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoSellCardUncommon then
+                    pcall(function()
+                        for fh, fj in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                            if fj.Name ~= "UIGridLayout" and "CardInventorySlot" then
+                        for fo, fp in pairs(getconnections(fj.CardClick.MouseButton1Down)) do
+                          fp:Fire()
+                            if game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.InvOverlayOuterFrame.CardInventoryOverlay.Rarity.Text == "Uncommon" then
+                                          game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("SellCard", fj.Name)
+                                        end
+                                    end
+                                end
+                            end
+                        end)
+
+                end
+            end
+             end)
+end
+    })
+
+    cardff:AddToggle({
+        text = "ขายการ์ด rare", 
+        state = _G.Settings.AutoSellCardRare,
+        callback = function(a) 
+            _G.Settings.AutoSellCardRare = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoSellCardRare then
+                    pcall(function()
+                        for fh, fj in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                            if fj.Name ~= "UIGridLayout" and "CardInventorySlot" then
+                        for fo, fp in pairs(getconnections(fj.CardClick.MouseButton1Down)) do
+                          fp:Fire()
+                            if game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.InvOverlayOuterFrame.CardInventoryOverlay.Rarity.Text == "Rare" then
+                                          game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("SellCard", fj.Name)
+                                        end
+                                    end
+                                end
+                            end
+                        end)
+
+                end
+            end
+             end)
+end
+    })
+
+    cardff:AddToggle({
+        text = "ขายการ์ด Epic", 
+        state = _G.Settings.AutoSellCardEpic,
+        callback = function(a) 
+            _G.Settings.AutoSellCardEpic = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoSellCardEpic then
+                    pcall(function()
+                        for fh, fj in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                            if fj.Name ~= "UIGridLayout" and "CardInventorySlot" then
+                        for fo, fp in pairs(getconnections(fj.CardClick.MouseButton1Down)) do
+                          fp:Fire()
+                            if game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.InvOverlayOuterFrame.CardInventoryOverlay.Rarity.Text == "Epic" then
+                                          game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("SellCard", fj.Name)
+                                        end
+                                    end
+                                end
+                            end
+                        end)
+
+                end
+            end
+             end)
+end
+    })
+
+    cardff:AddToggle({
+        text = "ขายการ์ด Legendary", 
+        state = _G.Settings.AutoSellCardLegendary,
+        callback = function(a) 
+            _G.Settings.AutoSellCardLegendary = a
+            saveSettings()
+
+
+            spawn(function()
+                while true do wait()
+                    if _G.Settings.AutoSellCardLegendary then
+                    pcall(function()
+                        for fh, fj in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.CardInventoryFrame.CardInventoryScrollingFrame:GetChildren()) do
+                            if fj.Name ~= "UIGridLayout" and "CardInventorySlot" then
+                        for fo, fp in pairs(getconnections(fj.CardClick.MouseButton1Down)) do
+                          fp:Fire()
+                            if game.Players.LocalPlayer.PlayerGui.MainGui.CenterUIFrame.Inventory.Frame.InvOverlayOuterFrame.CardInventoryOverlay.Rarity.Text == "Legendary" then
+                                          game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer("SellCard", fj.Name)
+                                        end
+                                    end
+                                end
+                            end
+                        end)
+
+                end
+            end
+             end)
+end
+    })
+
+
+
+    ProFolder:AddButton({
+        text = "redeem code", 
+            callback = function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/prasert002/001/main/006"))()
+            saveSettings()
+        end
+    })
+
+
+    ProFolder:AddButton({
+        text = "ตัวละครไม่ขาดการเชื่อมต่อ", 
+            callback = function()
+                local vu = game:GetService("VirtualUser")
+	game:GetService("Players").LocalPlayer.Idled:connect(function()
+		vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+		wait(1)
+		vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	end)
+        end    
+    })
+    ProFolder:AddButton({
+        text = "ปลดล้อคเกมส์พาส", 
+            callback = function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/prasert01/001/main/Gpall"))()
+            saveSettings()
+        end
+    })
+    ProFolder:AddButton({
+        text = "ซ่อนชื่อตัวละคร", 
+            callback = function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/prasert01/001/main/NameH"))()
+            saveSettings()
+        end
+    })
+    ProFolder:AddButton({
+        text = "รีเซิพเข้าเกมส์ใหม่", 
+            callback = function()
+                local tpservice= game:GetService("TeleportService")
+local plr = game.Players.LocalPlayer
+
+tpservice:Teleport(game.PlaceId, plr)
+        end
+    })
+    ProFolder:AddButton({
+        text = "วาบตามที่เราคลิก", 
+            callback = function()
+                mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Click Teleport"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+        end
+    })
+    ProFolder:AddButton({
+        text = "เดินเร็ว +30", 
+            callback = function()
+                getgenv().WalkSpeedValue = 30; --set your desired walkspeed here
+local Player = game:service'Players'.LocalPlayer;
+Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+end)
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+        end
+    })
+    ProFolder:AddButton({
+        text = "โดดได้ไม่จำกัด",
+            callback = function()
+                local Player = game:GetService'Players'.LocalPlayer;
+                local UIS = game:GetService'UserInputService';
+                
+                _G.JumpHeight = 100;
+                
+                function Action(Object, Function) if Object ~= nil then Function(Object); end end
+                
+                UIS.InputBegan:connect(function(UserInput)
+                    if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+                        Action(Player.Character.Humanoid, function(self)
+                            if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                                Action(self.Parent.HumanoidRootPart, function(self)
+                                    self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                                end)
+                            end
+                        end)
+                    end
+                end)
+            end
+    })  
+
+    SettingFolder:AddList({
+        text = "เลือก ด่าน", 
+        value = _G.Settings.MapName,
+        values = MapList, 
+        callback = function(a) 
+            _G.Settings.MapName = a
+            saveSettings() 
+        end
+    })  
+
+    SettingFolder:AddList({
+        text = " เลือก ความยาก", 
+        value = _G.Settings.Difficulty,
+        values = MapDifficulty, 
+        callback = function(a) 
+            _G.Settings.Difficulty = a
+            saveSettings() 
+        end
+    })
+
+    SettingFolder:AddToggle({
+        text = "เฉพาะเพื่อนเท่านั้น", 
+        state = _G.Settings.FriendsOnly,
+        callback = function(a) 
+            _G.Settings.FriendsOnly = a
+            saveSettings()
+        end
+    })
+
+    SettingFolder:AddToggle({
+        text = "โหมดฮาดคอ", 
+        state = _G.Settings.Hardcore,
+        callback = function(a) 
+            _G.Settings.Hardcore = a
+            saveSettings()
+        end
+    })
+
+    SettingFolder:AddToggle({
+        text = "ออโต้ ด่าน", 
+        state = _G.Settings.AutoRetry,
+        callback = function(a) 
+            _G.Settings.AutoRetry = a
+            saveSettings()
+          
+            task.spawn(function()
+                while task.wait() do
+                    if not _G.Settings.AutoRetry then break end
+                    game:GetService("ReplicatedStorage").RemoteEvents.MainRemoteEvent:FireServer("RetryDungeon")
+                end
+            end)
+        end
+    })
+
+    SettingFolder:AddToggle({
+        text = "ออโต้สกิล", 
+        state = _G.Settings.AutoSkill,
+        callback = function(a) 
+            _G.Settings.AutoSkill = a
+            saveSettings()
+
+            task.spawn(function()
+                while task.wait(.5) do
+                    if not _G.Settings.AutoSkill then break end
+                    for i, v in pairs(keys) do
+                        task.spawn(function()
+                            game:GetService('VirtualInputManager'):SendKeyEvent(true, v, false, game) 
+                        end)
+                    end
+                end
+            end)
+        end
+    })
+    SettingFolder:AddSlider({
+        text = "ระยะห่าง",
+        value = _G.Settings.Distance,
+        min = -10, 
+        max = 10, 
+        callback = function(a) 
+            _G.Settings.Distance = a 
+            saveSettings()
+        end
+    })
+
+    SettingFolder:AddSlider({
+        text = "ความเร็ว",
+        value = _G.Settings.Speed,
+        min = 10, 
+        max = 150, 
+        callback = function(a) 
+            _G.Settings.Speed = a 
+            saveSettings()
+        end
+    })
+
+    CreditsFolder:AddBind({
+        text = "เลือกวิธีเปิด-ปิด", 
+        key = "LeftControl", 
+        callback = function() 
+            library:Close()
+        end
+    })
+
+    CreditsFolder:AddButton({
+        text = "Script by ประเสริฐ ม่อน",
+        callback = function()
+            print("asd")
+        end
+    })
+
+    CreditsFolder:AddButton({
+        text = "COPYLINK FACEBOOK",
+        callback = function()
+            setclipboard("https://www.facebook.com/Khunmons")
+        end
+    })
+    
+    library:Init()
+
+end
+
+getgenv().autofarm = true
+getgenv().AutoSkills = true
+getgenv().AutoRetry = true
+speed = 150
+Distance = 5
+function tween(target)
+    local target = pcall(function() return target.CFrame end) and target.CFrame or target
+    game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(game.Players.LocalPlayer:DistanceFromCharacter(target.Position)/speed, Enum.EasingStyle.Linear), {CFrame = target*CFrame.new(0,0,Distance)}):Play()
+    wait(game.Players.LocalPlayer:DistanceFromCharacter(target.Position)/speed)
+end
+local Name = game:GetService("Players").LocalPlayer.Name
+spawn(function()
+    while wait() do
+        if autofarm then
+           
+            for i,v in pairs(workspace.Folders.Monsters:GetChildren()) do
+                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChildOfClass("Humanoid") and v:FindFirstChildOfClass("Humanoid").Health > 0 then
+                    pcall(function()
+                        repeat
+                            wait()
+                --             pcall(function()
+                --             for i1,v1 in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
+                --                 if v:FindFirstChild then
+                --                     if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v1.Position).magnitude > 10 then
+                --                         game.Players.LocalPlayer.Character.Humanoid:MoveTo(v1.CFrame)
+                --                     end
+                --                 end     
+                --             end
+                -- end)     
+                                pcall(function()
+                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude <= 5 then
+                          --      game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, true, nil, 1)
+                          --      game:GetService("VirtualInputManager"):SendMouseButtonEvent(10, 100, 0, false, nil, 1)
+                            end
+                        end)
+                            -- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                            game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.HumanoidRootPart.Position)
+                            v.Humanoid:ChangeState(11)
+                            -- v.HumanoidRootPart.Size = Vector3.new(900,900,900)
+                            -- v.HumanoidRootPart.Material = "Neon"
+                            -- v.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                            -- v.HumanoidRootPart.Transparency = 0.7
+                            -- v.HumanoidRootPart.CanCollide = false
+                        until not v.Parent or not v:IsDescendantOf(workspace.Folders) or v:FindFirstChildOfClass("Humanoid").Health == 0
+                    end)
+                end
+            end
+        end
+    end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Tengoku" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Hirito" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Monke Titan" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Combat Titan" then wait(60)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Monstrous Titan" then wait(5)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Yakaza" then wait(5)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "King of Curses" then wait(5)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Reaper" then wait(1)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Liberator" then wait(5)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Koneki" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "White Reaper" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "King of Heroes" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Alis" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Tobushiko" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Broccoli" then wait(10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Lance Guy" then wait(15)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "King" then wait(15)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+       if autofarm then
+           pcall(function()
+               for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                  if v.Name == "Infinity Nojo" then wait(15)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+               end
+           end)
+       end
+   end
+end)
+
+spawn(function()
+    while true do wait()
+        if autofarm then
+            pcall(function()
+                for i,v in pairs(game:GetService("Workspace").Folders.Monsters:GetChildren()) do
+                    if v.Name == _G.Settings.Boss then
+                        -- if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude <= 10 then
+                                 tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude/300, Enum.EasingStyle.Linear)-- 10 คือ ระยะเวลาที่จะไปถึงจุด ...
+            tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.HumanoidRootPart.CFrame}) -- CFrame เรา ไป CFrame.new
+            tween:Play()
+            end
+                    -- end
+                end
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while true do wait()
+    if autofarm then
+        pcall(function()
+            for i,v in pairs(workspace.Folders.Monsters:GetChildren()) do
+                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude >= 20 then
+                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 70
+                else
+                    game:GetService("Workspace").Folders.Players[tostring(Name)].Humanoid.WalkSpeed = 20
+                end
+                            end
+                        end)
+                    end
+                end
+            end)
+
+spawn(function()
+    while true do wait()
+        if autofarm then
+            for i1,v1 in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
+                if string.find(v1.Name, "TeleportDestination") then
+                    CFrameTeleport = v1.CFrame
+                end
+            end
+    for i,v in pairs(game:GetService("Workspace").GameMap:GetDescendants()) do
+        if string.find(v.Name, "TeleportCircle") then
+            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude <= 30 then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameTeleport
+                    end
+                end
+            end
+        end
+    end
+end)
+
+    
+game:GetService("RunService").Heartbeat:Connect(function()
+    if _G.Settings.AutoFarm then
+     pcall(function()
+       game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+     end)
+    end
+ end)
+ _G.HeadSize = 2500
+ local Monsters = workspace.Folders.Monsters
+ while wait() do
+   for _,v in next, Monsters:GetChildren() do
+ if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+ pcall(function()
+        v.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+        v.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+        v.HumanoidRootPart.Transparency = 0.7
+        v.HumanoidRootPart.CanCollide = false
+ end)
+ end
+   end
+ end
+
+--  -- Script generated by SimpleSpy - credits to exx#9394
+
+-- local args = {
+--     [1] = "BuyEgg",
+--     [2] = "Attack Titan Capsule"
+-- }
+
+-- game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+
+
+-- -- Script generated by SimpleSpy - credits to exx#9394
+
+-- local args = {
+--     [1] = "BuyEgg",
+--     [2] = "Infinity Nojo Capsule"
+-- }
+
+-- game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+
+-- -- Script generated by SimpleSpy - credits to exx#9394
+
+-- local args = {
+--     [1] = "BuyEgg",
+--     [2] = "Raid Capsule 1"
+-- }
+
+-- game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(unpack(args))
+
+
+-- spawn(function()
+--     while true do wait()
+--     if _G.Settings.Autobestcard then
+--         pcall(function()
+
+-- end)
+-- end
+-- end
+-- end)
+
